@@ -19,6 +19,7 @@ class Todo {
         this.todoItems = document.querySelector('.todo__items');
         this.searchInput = document.getElementById('search-text');
         this.infoTable = document.querySelector('.info-table');
+        this.form = document.querySelector('form');
     }
 
     action(e) {
@@ -45,11 +46,14 @@ class Todo {
                 elemItem.classList.add('done');
             }
             this.save();
+        } else if(target.classList.contains('form-title')) {
+            this.form.classList.toggle('form-hidden');
         } else if (target.classList.contains('add')) {
             this.add();
             this.save();
         }
     }
+
     init() {
         const fromStorage = localStorage.getItem('todo');
         if(fromStorage) {
@@ -117,6 +121,7 @@ class Todo {
         noteName.value = '';
         noteDescription.value = '';
         noteDate.value = '';
+        this.form.classList.toggle('form-hidden');
         location.reload();
     }
 }
