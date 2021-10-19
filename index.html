@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="lng-unit">TODO-list</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="datatables.css"></head>
+<body id="dark__theme">
+
+<div class="wrapper">
+    <header>
+        <select id="language">
+            <option value="en" selected>EN</option>
+            <option value="ru">RU</option>
+        </select>
+        <div class="theme">
+            <span class="theme__switch"></span>
+        </div>    
+    </header>
+    <main>
+        <h1 class="lng-main-title">My To Do List</h1>
+        <div class="table">
+            <form class="form">
+                    <p class="lng-form-title">Add your note</p>
+                    <div class="form__item name">
+                        <label for="name" class="lng-name">Name</label>
+                        <input type="text" id="NAME">
+                    </div>
+                    <div class="form__item description">
+                        <label for="description" class="lng-description">Description</label>
+                        <textarea name="description" id="DESCRIPTION"></textarea>
+                    </div>
+                    <div class="form__item date">
+                        <label for="date" class="lng-expiration">Expiration date</label>
+                        <input type="text" id="DATE" placeholder="yyyy-mm-dd">
+                    </div>
+                    <div class="form__item priority">
+                        <span class="lng-prioprity-title">Priority:</span>
+                        <div class="form__radio">
+                            <input id="radio-1" type="radio" value="Very important" name="priority">
+                            <label for="radio-1" class="lng-very-important">Very important</label>
+                        </div>
+    
+                        <div class="form__radio">
+                            <input id="radio-2" type="radio" value="Important" name="priority">
+                            <label for="radio-2" class="lng-important">Important</label>
+                        </div>
+    
+                        <div class="form__radio">
+                            <input id="radio-3" type="radio" value="Not important" name="priority">
+                            <label for="radio-3" class="lng-note-important">Not important</label>
+                        </div>
+    
+                    </div>
+                    <div class="form__item">
+                        <input type="button" name="add" id='add' class="add lng-add" value="add">
+                    </div>
+                </form>
+            <div class="list">
+                <table id="table_id" class="display info-table">
+                    <thead>
+                        <tr>
+                            <th class="lng-name-th">Name</th>
+                            <th class="lng-description-th">Description</th>
+                            <th class="lng-expiration-th">Expiration date</th>
+                            <th class="lng-prioprity-th">Priority</th>
+                            <th class="lng-actions-th">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="todo__items"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>  
+</div>  
+
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="datatables.js"></script>
+    <script>
+
+        const enURL = '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/English.json';
+        const ruURL = '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Russian.json';
+        let langForPage = null;
+        let langSelected = document.getElementById('language');
+
+        if (langSelected.value === 'en') {
+            langForPage = enURL;
+        } else if (langSelected.value === 'ru') {
+            langForPage = ruURL;
+        }
+
+        $(document).ready( function () {
+            $('#table_id').DataTable({
+                "pageLength": 5,
+                "lengthMenu": [ 5, 10, 25 ],
+                "language": {
+                    "url": langForPage,
+                }
+            });
+        } );
+    </script>
+</body>
+</html>
